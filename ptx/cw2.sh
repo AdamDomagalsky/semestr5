@@ -1,3 +1,8 @@
+cat utfSlowa.lst | grep 'at$' | wc -l
+cat utfSlowa.lst | egrep -o '[[:alpha:]]{4}$' | sort | uniq -c | sort -r | head -n 1
+^(.)(.?).?\3\2\1$
+cat korpus.txt | tr '[:punct:]' ' '| tr '[:upper:]' '[:lower:]' | sed -r 's/^([:alpha:]+ (.*))$/\1\n\2/'
+
 iconv -f Latin2 -t UTF-8 slowa.lst > uslowa.lst
 
 #1 Policzyc slowa z koncowka at
