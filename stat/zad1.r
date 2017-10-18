@@ -38,8 +38,48 @@
   save(miasta,file='Miasta1.RData')
   #g
   matplot(miasta,type='b',pch=1:4,ylab = 'Temp (w C)',xlab='Miesiac')
+
+#Zad3
+    ankieta=read.table('Ankieta.txt',header = TRUE)
+    tbl=table(ankieta$WYNIK)
+    tbl
+    prop.table(tbl)
+    
+    
+    tmp=ankieta[ankieta$SZKOLA=='p',]
+    pod=table(tmp$WYNIK)
+    pod
+    round(prop.table(pod),2)
+    
+    tmp=ankieta[ankieta$SZKOLA=='s',]
+    srd=table(tmp$WYNIK)
+    srd
+    round(prop.table(srd),2)
+    
+    tmp=ankieta[ankieta$SZKOLA=='w',]
+    wy=table(tmp$WYNIK)
+    wy
+    round(prop.table(wy),2)
+    
+
+    
+    pie(main='P',pod)
+    pie(main='S',srd)
+    pie(main='W',wy)
+    
+    
+    Kobiety = subset(Ankieta, (SZKOLA == 'w' | SZKOLA == 's') & PLEC == 'k',select=c(SZKOLA, PLEC, WYNIK))
+    ankieta[ankieta$PLEC=='k' & ankieta$SZKOLA!='p',]
+    
+    library(car)
+    ankieta$WYNIK=recode(ankieta$WYNIK,"c('a','b')=1;c('c','d')=2;c('e')=3")
+    ankieta$WYNIK
   
-
-
-
-
+      
+    barplot(table(ankieta$WYNIK, ankieta$PLEC), col=1:5,beside=TRUE, legend=rownames(table(ankieta$WYNIK, ankieta$PLEC)))
+    barplot(table(ankieta$PLEC, ankieta$WYNIK), beside=TRUE)
+#Zad4
+    
+        
+    
+    
