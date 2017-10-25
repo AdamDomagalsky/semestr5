@@ -1,6 +1,5 @@
-# re=ARGV.shift
-# while l=gets
-#     if l=~/#{re}/ then puts l end
-# end
+#!/usr/bin/ruby
 
-ARGV
+while line=gets 
+    line.split.each {|w| puts w}
+end
