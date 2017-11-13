@@ -78,7 +78,11 @@
       
     barplot(table(ankieta$WYNIK, ankieta$PLEC), col=1:5,beside=TRUE, legend=rownames(table(ankieta$WYNIK, ankieta$PLEC)))
     barplot(table(ankieta$PLEC, ankieta$WYNIK), beside=TRUE)
+    
+    
+    
 #Zad4
+    
     
         
     
