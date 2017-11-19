@@ -1,77 +1,63 @@
 require 'open-uri'
 require 'pp'
 require 'tty/prompt'
+require 'tty/pager'
+require 'json'
 
 categories=['Reference','Culture','Geography','Health','History','Mathematics','Nature','People','Philosophy','Religion','Society','Technology']
 
-
-#1. Podkategorie kategori
-#https://en.wikipedia.org/w/api.php?action=categorytree&format=json&category=Society
-#2. Mozliwe strony do wyswietlenia
-#https://en.wikipedia.org/w/api.php?action=query&format=json&list=categorymembers&cmtype=page&cmlimit=max&cmtitle=Category:Society
-#3. Z 2 wybieram zapytanie i wyswietlam strone
-#https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&titles=Baby fashion
-
-
-def categories(category)
+def getCategories(category)
     url="https://en.wikipedia.org/w/api.php?action=categorytree&format=json&category=#{category}"
     URI.parse(url)
         .read.scan(%r{Category:[a-zA-Z_]+})
             .map{|x| x.gsub('Category:','').gsub('_',' ')}
 end
+#p getCategories('health')
 
 
-
-def articles(articles)
+def getArticles(articles)
     url="https://en.wikipedia.org/w/api.php?action=query&format=json&list=categorymembers&cmtype=page&cmlimit=max&cmtitle=Category:#{articles}"
-    URI.parse(url).read
+    JSON.parse(URI.parse(url).read)['query']['categorymembers'].map{|x| x['title']}
 end
+#p getArticles('society')
 
-
-p articles('society')
-
-def pages(title)
+def getPages(title)
     url="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=&titles=#{title}"
+    text=JSON.parse(URI.parse(url).read)['query']['pages'].map{|k,v| v}[0]['extract']
+    pager = TTY::Pager.new
+    pager.page(text)
 end
-
-
-
-
-
-
-
-
-
-=begin
-catDic={}
-categories.each {|category| 
-    catDic[category]= URI.parse("https://en.wikipedia.org/w/api.php?action=categorytree&category=#{category}&format=json")
-        .read.scan(%r{Category:[a-zA-Z_]+})
-            .map{|x| x.gsub('Category:','').gsub('_',' ')}
-    }
-
-
-catDic.each {|x,y| p y}
-
-
+#p getPages('Society')
+#catDic.each {|x,y| p y}
 #system "clear" or system "cls"
 #1.
-def menu(header, categories, lines)
-    prompt = TTY::Prompt.new
-    selected=prompt.select(header, categories,'back', per_page:lines)
-    if selected=='back'
-        p 'Stacks pops here'
-        
-    end
 
-    if prompt.yes?('Would you like to see articles of this category?')
-        p '#2\tOk! dawaj'
+flag=true
+stack=[categories]
+title=['Main']
+while flag do
+    prompt = TTY::Prompt.new
+    selected=prompt.select("#{title.last} Categories", stack.last,'back', per_page:14)
+    if(selected!='back')
+        stack<<getCategories(selected)
+        title<<"Subcategories of: #{selected}"
+        if prompt.yes?("Would you like to see articles of #{selected} category?")
+            selected=prompt.select("Articles of #{selected} category", getArticles(selected),'back', per_page:14)
+            if(selected=='back')
+                stack.pop
+                title.pop
+                if(stack.empty?)
+                    flag=false
+                end
+            end
+            getPages(selected)
+        end
     else
-        p 'I am sad'
+        stack.pop
+        title.pop
+        if(stack.empty?)
+            flag=false
+        end
     end
-    
 end
 
-
-menu('Main Categories',categories,13)
-=end

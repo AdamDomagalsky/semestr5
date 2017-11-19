@@ -1,0 +1,4 @@
+
+mpile --acceptor=true --isymbols=a2.fst a1.fst binary.fst
+
+
