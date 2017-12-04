@@ -1,0 +1,5 @@
+echo 'abbc' | ./buildautomata.py > word.aut
+fstcompile --acceptor=true --isymbols=symbols.txt word.aut word.fst
+fstintersect binary.fst word.fst > result.fst
+fstdraw --isymbols=symbols.txt result.fst result.dot
+xdot result.dot

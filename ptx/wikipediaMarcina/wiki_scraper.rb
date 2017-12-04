@@ -1,0 +1,4 @@
+
+
+class WikiScraper
+end

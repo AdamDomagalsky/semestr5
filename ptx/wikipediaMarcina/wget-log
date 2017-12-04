@@ -1,0 +1,12 @@
+--2017-11-01 13:48:45--  https://en.wikipedia.org/w/api.php?action=categorytree
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Resolving en.wikipedia.org... 91.198.174.192, 2620:0:862:ed1a::1
+Connecting to en.wikipedia.org|91.198.174.192|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘api.php?action=categorytree’
+
+api.php?action=categorytree       [<=>                                             ]       0  --.-KB/s               api.php?action=categorytree       [ <=>                                            ]   2,96K  --.-KB/s    in 0s      
+
+2017-11-01 13:48:46 (17,5 MB/s) - ‘api.php?action=categorytree’ saved [8225]
+

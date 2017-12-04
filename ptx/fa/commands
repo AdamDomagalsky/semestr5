@@ -1,4 +1,14 @@
 
-mpile --acceptor=true --isymbols=a2.fst a1.fst binary.fst
+fstcompile --acceptor=true --isymbols=a2.fst a1.fst binary.fst
+
+fstdraw --isymbols=symbol.txt binary.fst binary.dot
+
+xdot binary.dot > binary.ps
+
+
+
+
+
+
 
 
