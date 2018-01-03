@@ -1,0 +1,5 @@
+TaskX05
+
+LD_LIBLARY_PATH=/usr/lib/fst thraxrewrite-tester --far=legiatolech.far --rules=legia_to_lech
+
+

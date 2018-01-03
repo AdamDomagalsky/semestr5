@@ -1,0 +1,7 @@
+1..1
+not ok 1 TaskX06/test
+  6c6
+  < Input string: 
+  \ No newline at end of file
+  ===
+  > Input string: 
