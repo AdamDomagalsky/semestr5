@@ -10,7 +10,7 @@ graph	{return GRAPH_START;}
 digraph {return DIGRAPH_START;}
 
 -\.	{return NODIR_DOTTED;}
--\.>	{return DIR_DOTTED;}
+\.>	{return DIR_DOTTED;}
 -	{return NODIR;}
 >	{return DIR;}
 
@@ -29,7 +29,7 @@ TB|BT|RL|LR|TD	{
 		return RANKDIR;
 }
 
-\"[ a-zA-Z0-9]+\"	{
+\"[ a-zA-Z0-9$&+,:;=?@#|'<>.^*()%!-]+\"	{
 		yylval.string=strdup(yytext); 
 		return TITLE;
 }
@@ -38,7 +38,6 @@ TB|BT|RL|LR|TD	{
 		yylval.string=strdup(yytext);
 		return ID;
 	}
-
 
 \n	/* ignore EOF*/;
 [ \t]+	/* ignore whitespace */;

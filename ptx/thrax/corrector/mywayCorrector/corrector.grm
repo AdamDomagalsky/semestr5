@@ -1,0 +1,16 @@
+letters = Optimize["a" | "ą" | "b" | "c" | "ć" | "d" | "e" | "ę" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "ł" | "m" | "n" | "o" | "p" | "r" | "s" | "ś" | "t" | "u" | "w" | "ó" | "z" | "ź" | "ż" | "y"];
+
+swaps = (("s":"ś") | ("ć":"c") | ("c":"ć") | ("ż":"z") | ("z":"ż") | ("ź":"z") | ("z":"ź") | ("ó":"o") | ("o":"ó") | ("l":"ł") | ("ł":"l") | ("e":"ę") | ("ę":"e") | ("om":"ą") | ("ą":"om") | ("a":"ą") | ("ą":"a") | ("h":"ch") | ("ch":"h") | ("u":"ó") | ("ó":"u") | ("ż":"rz") | ("rz":"ż"))<1> ;
+
+
+voc1 = Optimize[StringFile['./vocab1.txt']];
+voc2 = Optimize[StringFile['./vocab2.txt']];
+voc3 = Optimize[StringFile['./vocab3.txt']];
+voc1and2 = Optimize[voc1|voc2];
+
+
+export vocabulary123= Optimize[voc1and2|voc3];
+
+composition = Optimize[vocabulary123 @ ((letters|swaps)+)];
+
+export spelling = Optimize[Invert[composition]];

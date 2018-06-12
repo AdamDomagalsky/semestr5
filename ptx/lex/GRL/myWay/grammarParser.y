@@ -32,11 +32,12 @@ digraph_start: DIGRAPH_START {printf("digraph {");}
 rankdir: RANKDIR {printf("\n\trankdir=%s;\n",$1);}; 
 
 dipath: | dipath node diedge id {printf("%s;\n", lineStyle);};
-path: | path node edge id {printf(";\n");};
+path: | path node edge id {printf("%s;\n", lineStyle);};
 
 diedge: DIR {printf("->");lineStyle="";}
     | DIR_DOTTED {printf("->");lineStyle="[style=\"dashed\"] ";}
     ;
+
 edge: NODIR {printf("--");lineStyle="";}
     | NODIR_DOTTED {printf("--");lineStyle="[style=\"dashed\"]";}
     ;
@@ -58,9 +59,6 @@ id: ID {printf("%s",$1);prv=strdup(yylval.string);}
 
 idCustom: ID TITLE {printf("%s[label=%s];\n %s",$1,$2,$1);}
     | id shape
-
-
-
 
 %%
 

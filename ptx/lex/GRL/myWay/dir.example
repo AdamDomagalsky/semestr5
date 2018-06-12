@@ -1,0 +1,10 @@
+digraph LR
+    B -.> c
+    a > B
+    c"Kocham" > s
+    x"Cie" > s
+    z("Mamo")>e
+    f()>s
+    he[]>po
+    y{}>a
+    u{"tajtle"}-.>p
